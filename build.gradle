@@ -1,0 +1,27 @@
+/*
+ * Run this project by:
+ * 1. open shell and set JDK with "JAVA_HOME=/usr/java/jdk1.8.0_45"
+ * 2. gradle --version (needs to pick up 1.8)
+ * 3. gradle clean build
+ */
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+group = 'co.btk'
+version = '1.0-SNAPSHOT'
+
+description = """java8-mooc"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.7'
+    testCompile 'junit:junit:4.11'
+}
