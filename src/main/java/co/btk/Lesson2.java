@@ -3,7 +3,7 @@
  *
  * JDK 8 MOOC Lesson 2 homework
  */
-package lesson2;
+package co.btk;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,15 +13,29 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * REFERENCE READING:
  *  https://docs.oracle.com/javase/8/docs/api/index.html?java/util/stream/package-summary.html
  *
  *  http://howtodoinjava.com/2014/04/13/java-8-tutorial-streams-by-examples/
+ *  http://stackoverflow.com/questions/18552005/is-there-a-concise-way-to-iterate-over-a-stream-with-indices-in-java-8
  */
 public class Lesson2 {
   private static final String WORD_REGEXP = "[- .:,]+";
+
+
+  /**
+   * Main entry point for application
+   *
+   * @param args the command line arguments
+   * @throws IOException If file access does not work
+   */
+  public static void main(String[] args) throws IOException {
+    Lesson2 lesson = new Lesson2();
+    lesson.runExercises();
+  }
 
   /**
    * Run the exercises to ensure we got the right answers
@@ -89,8 +103,15 @@ public class Lesson2 {
     List<String> list = Arrays.asList(
         "The", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog");
 
-    /* YOUR CODE HERE */
-
+    // The Java 8 streams API lacks the features of getting the "index" of a stream element.
+    // There are often workarounds, however. Usually this can be done by "driving" the stream with an integer range,
+    // and taking advantage of the fact that the elements are often in an array or in a collection accessible by index.
+    String target =
+            IntStream.range(0, list.size())
+                    .filter(i -> i == 2 || i == 3 | i == 4)
+                    .mapToObj(i -> list.get(i))
+                    .collect(Collectors.joining("-"));
+    System.out.println("exercise 3 - filtered and joined items: " + target);
   }
 
   /**
@@ -99,7 +120,7 @@ public class Lesson2 {
   private void exercise4() throws IOException {
     try (BufferedReader reader = Files.newBufferedReader(
         Paths.get("poem.txt"), StandardCharsets.UTF_8)) {
-      /* YOUR CODE HERE */
+      System.out.println("exercise 4 - line count: " + reader.lines().count());
     }
   }
   
@@ -138,15 +159,5 @@ public class Lesson2 {
     }
   }
 
-  /**
-   * Main entry point for application
-   *
-   * @param args the command line arguments
-   * @throws IOException If file access does not work
-   */
-  public static void main(String[] args) throws IOException {
-    Lesson2 lesson = new Lesson2();
-    lesson.runExercises();
-  }
 }
 
