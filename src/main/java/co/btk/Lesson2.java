@@ -13,11 +13,12 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * REFERENCE READING:
+ *  https://docs.oracle.com/javase/8/docs/api/index.html?java/util/stream/package-summary.html
  *
+ *  http://howtodoinjava.com/2014/04/13/java-8-tutorial-streams-by-examples/
  */
 public class Lesson2 {
   private static final String WORD_REGEXP = "[- .:,]+";
@@ -56,6 +57,8 @@ public class Lesson2 {
         "The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
     /* YOUR CODE HERE */
+    List<String> target = list.stream().map(String::toLowerCase).collect(Collectors.toList());
+    System.out.println("exercise 1 - lowercase items: " + target);
   }
 
   /**
@@ -69,6 +72,11 @@ public class Lesson2 {
         "The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
     /* YOUR CODE HERE */
+    List<String> target = list.stream()
+            .map(String::toLowerCase)
+            .filter(item -> (item.length() % 2 == 1))
+            .collect(Collectors.toList());
+    System.out.println("exercise 2 - lowercase items that are odd lengths: " + target);
   }
 
   /**
@@ -82,6 +90,7 @@ public class Lesson2 {
         "The", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog");
 
     /* YOUR CODE HERE */
+
   }
 
   /**
