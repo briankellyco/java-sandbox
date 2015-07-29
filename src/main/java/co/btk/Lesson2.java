@@ -23,6 +23,8 @@ import java.util.stream.IntStream;
  *  http://stackoverflow.com/questions/18552005/is-there-a-concise-way-to-iterate-over-a-stream-with-indices-in-java-8
  */
 public class Lesson2 {
+
+
   private static final String WORD_REGEXP = "[- .:,]+";
 
 
@@ -118,10 +120,14 @@ public class Lesson2 {
    * Count the number of lines in the file using the BufferedReader provided
    */
   private void exercise4() throws IOException {
-    try (BufferedReader reader = Files.newBufferedReader(
-        Paths.get("poem.txt"), StandardCharsets.UTF_8)) {
-      System.out.println("exercise 4 - line count: " + reader.lines().count());
-    }
+
+    long count = 0;
+    try {
+      BufferedReader reader = Files.newBufferedReader(
+              Paths.get(ClassLoader.getSystemClassLoader().getResource("./poem.txt").toURI()), StandardCharsets.UTF_8);
+      count = reader.lines().count();
+    } catch (Exception e) {}
+    System.out.println("exercise 4 - line count: " + count);
   }
   
   /**
@@ -131,10 +137,19 @@ public class Lesson2 {
    * HINT: A regular expression, WORD_REGEXP, is already defined for your use.
    */
   private void exercise5() throws IOException {
-    try (BufferedReader reader = Files.newBufferedReader(
-        Paths.get("poem.txt"), StandardCharsets.UTF_8)) {
-      /* YOUR CODE HERE */
-    }
+    try {
+      BufferedReader reader = Files.newBufferedReader(
+              Paths.get(ClassLoader.getSystemClassLoader().getResource("./poem.txt").toURI()), StandardCharsets.UTF_8);
+
+      List<String> target = reader.lines().filter(s -> s.matches(WORD_REGEXP)).collect(Collectors.toList());
+      System.out.println("exercise 5 - lowercase items that are odd lengths: " + target);
+    } catch (Exception e) {}
+    //http://stackoverflow.com/questions/24660888/collect-hashset-java-8-regex-pattern-stream-api
+    // http://stackoverflow.com/questions/29806558/regex-not-working-with-stream-filter
+    // http://www.shredzone.de/cilla/page/380/little-java-regex-cookbook.html
+
+
+
   }
   
   /**
