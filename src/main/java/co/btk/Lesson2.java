@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -21,6 +23,8 @@ import java.util.stream.IntStream;
  *
  *  http://howtodoinjava.com/2014/04/13/java-8-tutorial-streams-by-examples/
  *  http://stackoverflow.com/questions/18552005/is-there-a-concise-way-to-iterate-over-a-stream-with-indices-in-java-8
+ *  https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html
+ *
  */
 public class Lesson2 {
 
@@ -141,12 +145,26 @@ public class Lesson2 {
       BufferedReader reader = Files.newBufferedReader(
               Paths.get(ClassLoader.getSystemClassLoader().getResource("./poem.txt").toURI()), StandardCharsets.UTF_8);
 
-      List<String> target = reader.lines().filter(s -> s.matches(WORD_REGEXP)).collect(Collectors.toList());
+      //Function<Integer, Integer> func = x -> x * 2;
+      //int result = func.apply(10);
+      Function<String, List<String>> func = line -> {
+        Pattern p = Pattern.compile(WORD_REGEXP);
+        CharSequence cs = line;
+        return Arrays.asList(p.split(cs));
+      };
+
+      // http://stackoverflow.com/questions/25147094/turn-a-list-of-lists-into-a-list-using-lambdas
+      List<String> target = reader.lines().map(line -> func.apply(line)).flatMap(l -> l.stream())
+              .collect(Collectors.toList());;
+
       System.out.println("exercise 5 - lowercase items that are odd lengths: " + target);
     } catch (Exception e) {}
     //http://stackoverflow.com/questions/24660888/collect-hashset-java-8-regex-pattern-stream-api
     // http://stackoverflow.com/questions/29806558/regex-not-working-with-stream-filter
     // http://www.shredzone.de/cilla/page/380/little-java-regex-cookbook.html
+
+    // nice filtering http://stackoverflow.com/questions/22662606/trying-to-understand-lambda-and-stream-in-java-8?rq=1
+    // http://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
 
 
 
