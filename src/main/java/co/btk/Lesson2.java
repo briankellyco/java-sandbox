@@ -12,10 +12,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * REFERENCE READING:
@@ -145,20 +147,34 @@ public class Lesson2 {
       BufferedReader reader = Files.newBufferedReader(
               Paths.get(ClassLoader.getSystemClassLoader().getResource("./poem.txt").toURI()), StandardCharsets.UTF_8);
 
-      //Function<Integer, Integer> func = x -> x * 2;
-      //int result = func.apply(10);
-      Function<String, List<String>> func = line -> {
+
+      // Approach 1
+      Function<String, List<String>> splitFunction = line -> {
         Pattern p = Pattern.compile(WORD_REGEXP);
-        CharSequence cs = line;
+        CharSequence cs = line.toLowerCase();
         return Arrays.asList(p.split(cs));
       };
 
       // http://stackoverflow.com/questions/25147094/turn-a-list-of-lists-into-a-list-using-lambdas
-      List<String> target = reader.lines().map(line -> func.apply(line)).flatMap(l -> l.stream())
-              .collect(Collectors.toList());;
+      TreeSet<String> target = reader.lines().map(line -> splitFunction.apply(line)).flatMap(l -> l.stream())
+              .collect(Collectors.toCollection(TreeSet::new));;
 
-      System.out.println("exercise 5 - lowercase items that are odd lengths: " + target);
+      System.out.println("exercise 5 - list of words, no duplicates: approach1: " + target);
+
+      // Approach 2
+      // http://stackoverflow.com/questions/22382453/java-8-streams-flatmap-method-example
+      // https://books.google.co.uk/books?id=2QfzBgAAQBAJ&pg=PA63&lpg=PA63&dq=Stream.of+string%5B%5D&source=bl&ots=mbhxDw1xfR&sig=sLpQsdJHkbUZRdPZeiJLc4klkw0&hl=en&sa=X&ved=0CEUQ6AEwBmoVChMIusiXgfSCxwIVgklyCh0gIw67#v=onepage&q=Stream.of%20string%5B%5D&f=false
+      Pattern p = Pattern.compile(WORD_REGEXP);
+      List<String> target2 = reader.lines().flatMap(line -> Stream.of(line.split(WORD_REGEXP)))
+              .collect(Collectors.toList());
+      System.out.println("exercise 5 - list of words, no duplicates: approach2: " + target2);
+
+
     } catch (Exception e) {}
+
+    // Functional exception handling http://codingjunkie.net/functional-iterface-exceptions/
+    // https://pragprog.com/book/vsjava8/functional-programming-in-java
+
     //http://stackoverflow.com/questions/24660888/collect-hashset-java-8-regex-pattern-stream-api
     // http://stackoverflow.com/questions/29806558/regex-not-working-with-stream-filter
     // http://www.shredzone.de/cilla/page/380/little-java-regex-cookbook.html
