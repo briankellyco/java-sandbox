@@ -144,33 +144,37 @@ public class Lesson2 {
    */
   private void exercise5() throws IOException {
     try {
+
+      // Approach 1
       BufferedReader reader = Files.newBufferedReader(
               Paths.get(ClassLoader.getSystemClassLoader().getResource("./poem.txt").toURI()), StandardCharsets.UTF_8);
 
-
-      // Approach 1
       Function<String, List<String>> splitFunction = line -> {
         Pattern p = Pattern.compile(WORD_REGEXP);
         CharSequence cs = line.toLowerCase();
         return Arrays.asList(p.split(cs));
       };
-
-      // http://stackoverflow.com/questions/25147094/turn-a-list-of-lists-into-a-list-using-lambdas
-      TreeSet<String> target = reader.lines().map(line -> splitFunction.apply(line)).flatMap(l -> l.stream())
+      TreeSet<String> target = reader.lines()
+              .map(line -> splitFunction.apply(line))
+              .flatMap(l -> l.stream())
               .collect(Collectors.toCollection(TreeSet::new));;
-
       System.out.println("exercise 5 - list of words, no duplicates: approach1: " + target);
 
       // Approach 2
       // http://stackoverflow.com/questions/22382453/java-8-streams-flatmap-method-example
       // https://books.google.co.uk/books?id=2QfzBgAAQBAJ&pg=PA63&lpg=PA63&dq=Stream.of+string%5B%5D&source=bl&ots=mbhxDw1xfR&sig=sLpQsdJHkbUZRdPZeiJLc4klkw0&hl=en&sa=X&ved=0CEUQ6AEwBmoVChMIusiXgfSCxwIVgklyCh0gIw67#v=onepage&q=Stream.of%20string%5B%5D&f=false
-      Pattern p = Pattern.compile(WORD_REGEXP);
-      List<String> target2 = reader.lines().flatMap(line -> Stream.of(line.split(WORD_REGEXP)))
+      BufferedReader readerII = Files.newBufferedReader(
+              Paths.get(ClassLoader.getSystemClassLoader().getResource("./poem.txt").toURI()), StandardCharsets.UTF_8);
+      List<String> target2 = readerII.lines()
+              .flatMap(line -> Stream.of(line.toLowerCase().split(WORD_REGEXP)) )
+              .distinct()
+              .sorted()
               .collect(Collectors.toList());
       System.out.println("exercise 5 - list of words, no duplicates: approach2: " + target2);
 
 
-    } catch (Exception e) {}
+    } catch (Exception e) {
+    }
 
     // Functional exception handling http://codingjunkie.net/functional-iterface-exceptions/
     // https://pragprog.com/book/vsjava8/functional-programming-in-java
