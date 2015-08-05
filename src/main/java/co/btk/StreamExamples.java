@@ -1,13 +1,18 @@
 package co.btk;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.OptionalInt;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
- * REFERENCE: http://www.dotnetperls.com/lambda-java
+ * REFERENCE:
  */
 public class StreamExamples {
 
@@ -18,17 +23,20 @@ public class StreamExamples {
 
     public void runExercises() {
         System.out.println("JDK 8 stream examples");
-        System.out.println("Running flatMap...");
+
         exampleFlatMap();
-        System.out.println("Running supplier...");
-        //exampleSupplier();
+        exampleInfiniteStream_terminateOnCondition();
+        exampleCollectorAverageInts();
+        exampleCollectorSumLongs();
+        exampleCollectorToSet();
+        exampleCollectorGroupingBy();
 
     }
 
     // Convert List of Lists to single List
-    //@Test
     private void exampleFlatMap() {
 
+        // http://www.adam-bien.com/roller/abien/entry/java_8_flatmap_example
         List<Developer> team = new ArrayList<>();
         Developer polyglot = new Developer("esoteric");
         polyglot.add("clojure");
@@ -51,16 +59,21 @@ public class StreamExamples {
         //assertTrue(teamLanguages.containsAll(busy.getLanguages()));
     }
 
-
-    // http://www.adam-bien.com/roller/abien/entry/java_8_flatmap_example
     public static class Developer {
 
         private String name;
+        private String department;
         private Set<String> languages;
 
         public Developer(String name) {
             this.languages = new HashSet<>();
             this.name = name;
+        }
+
+        public Developer(String name, String department) {
+            this.languages = new HashSet<>();
+            this.name = name;
+            this.department = department;
         }
 
         public void add(String language) {
@@ -70,6 +83,73 @@ public class StreamExamples {
         public Set<String> getLanguages() {
             return languages;
         }
+
+        public String getDepartment() {
+            return this.department;
+        }
     }
+
+
+    private void exampleInfiniteStream_terminateOnCondition() {
+
+        // This will not iterate the whole collection, because streams are lazily evaluated. Stops when condition met.
+        Random r = new Random();
+        OptionalInt val =  r.ints().filter(i -> i > 256).findFirst();
+
+        System.out.println("exampleInfiniteStream_terminateOnCondition - terminated on = " + val.getAsInt());
+    }
+
+    private void exampleCollectorAverageInts() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4);
+        Double result = list.stream().collect(Collectors.averagingInt(v -> v * 2));
+        System.out.println("exampleCollectorAverageInts - average = " + result);
+    }
+
+    private void exampleCollectorSumLongs() {
+        List<Long> list = new ArrayList<>();
+        list.add((long) 220);
+        list.add((long) 250);
+        list.add((long) 300);
+        long result = list.stream().collect(Collectors.summingLong(i -> i));
+        System.out.println("exampleCollectorSumLongs - sum = " + result);
+    }
+
+    private void exampleCollectorToSet() {
+
+        Set<String> set = Stream.of("1", "2", "3").collect(Collectors.toSet());
+        set.forEach(s -> System.out.println("exampleCollectorToSet1 - value =" + s));
+
+        // syntax option
+        Set<String> set2 = Stream.of("1", "2", "3").collect(Collectors.<String>toSet());
+        set2.forEach(s -> System.out.println("exampleCollectorToSet2 - value =" + s));
+    }
+
+    private void exampleCollectorGroupingBy() {
+
+        /*
+            Collectors provide powerful ways to gather elements of an input stream
+            - Into collections
+            - In numerical ways like totals and averages
+            - Collectors can be composed to build more complex ones
+            - You can also create your own Collector
+         */
+        Developer devFunny = new Developer("tom", "consultancy");
+        Developer devCool = new Developer("alice", "product");
+        Developer devSerious = new Developer("paul", "product");
+
+        List<Developer> developers = new ArrayList<Developer>();
+        developers.add(devFunny);
+        developers.add(devCool);
+        developers.add(devSerious);
+
+        // Group employees by department
+        Map<String, List<Developer>> byDept = developers
+                .stream()
+                .collect(Collectors.groupingBy(Developer::getDepartment));
+
+        System.out.println(byDept);
+
+    }
+
 }
 
