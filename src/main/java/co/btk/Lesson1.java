@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  *      https://www.techempower.com/blog/2013/03/26/everything-about-java-8/
  *      http://javarevisited.blogspot.com/2014/02/10-example-of-lambda-expressions-in-java8.html
  *      http://viralpatel.net/blogs/lambda-expressions-java-tutorial/
- */
+ */lesson3
 public class Lesson1 {
 
     /**
