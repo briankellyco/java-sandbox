@@ -20,10 +20,6 @@ import java.util.stream.Collectors;
 
 /**
  * Class to generate a list of random words
- *
- * http://stackoverflow.com/questions/28651908/perform-operation-on-n-random-distinct-elements-from-collection-using-streams-ap
- *
- * @author Simon Ritter (@speakjava)
  */
 public class RandomWords {
 
@@ -65,9 +61,13 @@ public class RandomWords {
         //int randomNum = rand.nextInt((max - min) + 1) + min;
         int min = 1;
         int max = listSize;
-        //int randomNum = rand.nextInt((max - min) + 1) + min;
 
         wordList = randomSelectN(sourceWords, listSize);
+
+        // alternative approach
+        //wordList = rand.ints(listSize, 0, sourceWords.size())
+        //        .mapToObj(i -> sourceWords.get(i))
+        //        .collect(Collectors.toList());
 
         return wordList;
     }
