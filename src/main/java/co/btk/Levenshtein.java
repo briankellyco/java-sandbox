@@ -3,7 +3,7 @@
  *
  * JDK 8 MOOC Lesson 3 homework
  */
-package lesson3;
+package co.btk;
 
 import java.util.*;
 

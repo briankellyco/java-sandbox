@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
@@ -25,6 +26,7 @@ public class LambdaClassTypes {
         exampleSupplier();
         System.out.println("Running predicate...");
         examplePredicate();
+        examplePredicatesChained();
         System.out.println("Running consumer...");
         exampleConsumer();
         System.out.println("Running unaryOperator...");
@@ -67,6 +69,18 @@ public class LambdaClassTypes {
 
         list.removeIf(element -> element.startsWith("c"));
         System.out.println(list.toString());
+    }
+
+    private void examplePredicatesChained() {
+
+        // Predicate is a boolean returning method
+        Predicate<Integer> greaterThanTen = (i) -> i > 10;
+        Predicate<Integer> lowerThanTwenty = (i) -> i < 20;
+
+        boolean r1 = greaterThanTen.and(lowerThanTwenty).test(15);
+        boolean r2 = greaterThanTen.and(lowerThanTwenty).negate().test(15);
+
+        System.out.println("examplePredicatesChained - predicate1 = " + r1 + " predicate2 = " + r2);
     }
 
     private void exampleConsumer() {
