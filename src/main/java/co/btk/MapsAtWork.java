@@ -1,6 +1,7 @@
 package co.btk;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.*;
@@ -20,6 +21,7 @@ public class MapsAtWork {
         exampleSortedByValue();
         exampleSortedByValue_usingSortByValue();
         exampleSortedByValue_usingMapEntry();
+        exampleWriteHttpHeader_usingBiConsumer();
 
     }
 
@@ -103,6 +105,37 @@ public class MapsAtWork {
 
         list.forEach( (v) -> System.out.println("exampleSortedByValue_usingMapEntry - Value: " + v));
 
+    }
+
+    /**
+     * BiConsumer function accepts two input parameters and returns none.
+     *
+     * Example usage: could be used to write customised http headers on a per tenant basis.
+     */
+    private void exampleWriteHttpHeader_usingBiConsumer() {
+
+        Map<String, Collection<String>> headerMap = new HashMap<String, Collection<String>>();
+        headerMap.put("tenant1", Arrays.asList("X-TENANT-ID:1", "X-PRODUCT-ID:5"));
+        headerMap.put("tenant2", Arrays.asList("X-TENANT-ID:2", "X-PRODUCT-ID:4"));
+        headerMap.put("tenant3", Arrays.asList("X-TENANT-ID:3", "X-PRODUCT-ID:1"));
+
+        BiConsumer<String, Collection<String>> biConsumer = (key, value) -> {
+            value.forEach( v -> {
+                String[] header = v.split(":");
+                addCustomHeader(null, header[0], header[1]);
+            });
+        };
+        headerMap.forEach(biConsumer);
+    }
+
+    /**
+     * Demo supporting method
+     * @param o HttpServletResponse
+     * @param headerKey custom header name
+     * @param headerValue custom header value
+     */
+    private static void addCustomHeader(Object o, String headerKey, String headerValue) {
+        System.out.println("headerKey: "+ headerKey+" headerValue: "+ headerValue);
     }
 
 }
