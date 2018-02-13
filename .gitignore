@@ -1,4 +1,28 @@
-build
-.gradle
+### IntelliJ ###
+build/
+out/
+.idea/
 *.iml
+*.iws
+*.ipr
 
+### Gradle ###
+build/
+.gradle
+.gradle/4.2.1
+
+### Maven ###
+target/
+
+### Dev ###
+config/checkstyle/
+config/pmd/
+local.properties
+application-local.yml
+nikita-gradle-base.properties
+
+### macOS ###
+*.DS_Store
+
+### Misc ###
+*.log
