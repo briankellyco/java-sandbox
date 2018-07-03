@@ -2,8 +2,11 @@ package co.btk;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author Brian Kelly
@@ -27,6 +30,10 @@ public class StreamBasicsII {
         exampleLambdaUsageInsideMap();
 
         exampleAggregateListIntoList();
+
+        exampleSwitchDeveloperLanguage();
+
+        exampleNullChecksAndReturnString();
 
     }
 
@@ -100,7 +107,7 @@ public class StreamBasicsII {
          * How to aggregate List<Developer> objects into a master aggregated List<Developer>. Set usage
          * represents some iterator condition that might produce such a scenario for this logic.
          *
-         * Trick is.... use "flatMap(List::stream)" where the list is essentiall removed and the items are then
+         * Trick is.... use "flatMap(List::stream)" where the list is essentially removed and items are then
          * streamed out before before being "collected" into the aggregated list.
          *
          * SEE
@@ -118,8 +125,65 @@ public class StreamBasicsII {
                 .collect(Collectors.<Developer>toList());
 
         System.out.println("exampleAggregateListIntoList: " + developersTimesThree.size());
+    }
+
+    private void exampleSwitchDeveloperLanguage() {
+
+        List<Developer> developers = stubTestData();
+
+        //If you wanna modify current list, use Collection.forEach; use stream.map() to create a new list.
+        developers.forEach( developer -> {
+                List<String> languages = developer.getLanguages().stream().map(
+                        language -> {
+                            return (language != null && language.equalsIgnoreCase("java")) ? "vba" : language;
+                        }
+                ).collect(Collectors.toList());
+            developer.setLanguages(languages);
+        });
+        System.out.println("exampleSwitchDeveloperLanguage: vba: " + developers.size());
+
+        /*
+         * Java8 enables named lambdas in addition to inline functions.
+         */
+        Consumer<Developer> developerList = developer -> {
+            List<String> languages = developer.getLanguages().stream().map(
+                    language -> {
+                        return (language != null && language.equalsIgnoreCase("vba")) ? "java" : language;
+                    }
+            ).collect(Collectors.toList());
+            developer.setLanguages(languages);
+        };
+        developers.forEach(developerList);
+        System.out.println("exampleSwitchDeveloperLanguage: java: " + developers.size());
 
     }
+
+    private void exampleNullChecksAndReturnString() {
+
+        List<Developer> developers = stubTestData();
+
+        /*
+         * Demos getting first elements from a list in a null safe manner.
+         * Demos getting a string from a map (or any other object type).
+         * Use "maps" to chain null checks e.g http://winterbe.com/posts/2015/03/15/avoid-null-checks-in-java/
+         */
+        String title = Optional.ofNullable(developers)
+                .orElseGet(Collections::emptyList)
+                .stream()
+                .findFirst()
+                .map(developer -> {
+                    return developer.getDepartment() != null ?  developer.getDepartment()
+                : "no department defined";
+            })
+            .orElseThrow(() -> new RuntimeException("exception in exampleNullChecksAndReturnString()"));
+        System.out.println("exampleNullChecksAndReturnString: title: " + title);
+    }
+
+    // TODO.... use normal for loop and not forEach
+    private void exampleIterateListButBreak() {
+        // https://stackoverflow.com/questions/23308193/break-or-return-from-java-8-stream-foreach
+    }
+
 
     /**
      * Check if developer is already in list using a stream.
@@ -138,22 +202,22 @@ public class StreamBasicsII {
 
         private String name;
         private String department;
-        private Set<String> languages;
+        private List<String> languages;
         private BigDecimal salary;
 
         public Developer(String name) {
-            this.languages = new HashSet<>();
+            this.languages = new ArrayList<>();
             this.name = name;
         }
 
         public Developer(String name, String department) {
-            this.languages = new HashSet<>();
+            this.languages = new ArrayList<>();
             this.name = name;
             this.department = department;
         }
 
         public Developer(String name, String department, BigDecimal salary) {
-            this.languages = new HashSet<>();
+            this.languages = new ArrayList<>();
             this.name = name;
             this.department = department;
             this.salary = salary;
@@ -163,8 +227,12 @@ public class StreamBasicsII {
             this.languages.add(language);
         }
 
-        public Set<String> getLanguages() {
+        public List<String> getLanguages() {
             return languages;
+        }
+
+        public void setLanguages(List<String> languages) {
+            this.languages = languages;
         }
 
         public String getDepartment() {
@@ -186,9 +254,16 @@ public class StreamBasicsII {
 
     public List<Developer> stubTestData() {
         Developer devFunny = new Developer("tom", "consultancy", new BigDecimal("100.11111"));
+        devFunny.add("java");
+        devFunny.add("javascript");
         Developer devCool = new Developer("alice", "product", new BigDecimal("1000.22222"));
+        devCool.add("java");
+        devCool.add("javascript");
+        devCool.add("golang");
+        devCool.add("groovy");
         Developer devSerious = new Developer("paul", "product", new BigDecimal("10000.55555"));
-        Developer devQuiet = new Developer("paul", "product", null);
+        Developer devQuiet = new Developer("john", "product", null);
+        devQuiet.add("python");
 
         List<Developer> developers = new ArrayList<Developer>();
         developers.add(devFunny);
