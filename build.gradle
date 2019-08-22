@@ -1,27 +1,19 @@
-/*
- * Run this project by:
- * 1. open shell and set JDK with "JAVA_HOME=/usr/java/jdk1.8.0_45"
- * 2. gradle --version (needs to pick up 1.8)
- * 3. gradle clean build
- */
-
-apply plugin: 'java'
-apply plugin: 'maven'
 apply plugin: 'idea'
+apply plugin: 'java'
 
-idea {
-    project {
-        languageLevel = '1.8'
-    }
-}
+apply plugin: 'maven-publish'
 
-group = 'co.btk'
-version = '1.0-SNAPSHOT'
-
-description = """java8-mooc"""
+group = 'co.bk.java8-mooc'
+version = '0.0.1-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+idea {
+    project {
+        languageLevel = '11'
+    }
+}
 
 sourceSets {
     main {
@@ -49,5 +41,6 @@ repositories {
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.7'
+    compile group: 'com.google.guava', name: 'guava', version: '23.0' //multimap
     testCompile 'junit:junit:4.11'
 }

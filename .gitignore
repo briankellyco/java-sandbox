@@ -15,11 +15,8 @@ build/
 target/
 
 ### Dev ###
-config/checkstyle/
-config/pmd/
 local.properties
 application-local.yml
-nikita-gradle-base.properties
 
 ### macOS ###
 *.DS_Store

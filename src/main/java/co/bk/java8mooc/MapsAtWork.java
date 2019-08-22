@@ -1,12 +1,9 @@
-package co.btk;
+package co.bk.java8mooc;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.common.collect.TreeMultimap;
+
+import java.net.URLEncoder;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,6 +24,8 @@ public class MapsAtWork {
         exampleSortedByValue_usingSortByValue();
         exampleSortedByValue_usingMapEntry();
         exampleWriteHttpHeader_usingBiConsumer();
+
+        exampleMapThatSupportsDuplicateKeys();
 
     }
 
@@ -142,6 +141,40 @@ public class MapsAtWork {
     private static void addCustomHeader(Object o, String headerKey, String headerValue) {
         System.out.println("headerKey: "+ headerKey+" headerValue: "+ headerValue);
     }
+
+
+
+    private void exampleMapThatSupportsDuplicateKeys() {
+
+        StringBuilder queryString = new StringBuilder();
+
+        // allow duplicate keys (provided values are different). Natural ordering applied in treemultimap
+        TreeMultimap<String, String> urlQueryParameters = TreeMultimap.create();
+        urlQueryParameters.put("Param1", "value2");
+        urlQueryParameters.put("Param1", "value1");
+        urlQueryParameters.put("Param2", "value3");
+
+        NavigableSet<String> keys = urlQueryParameters.keySet();
+        for (String key : keys) {
+            System.out.println("key = " + key);
+            NavigableSet<String> values = urlQueryParameters.get(key);
+            for (String value : values) {
+                System.out.println("value = " + value);
+                queryString.append(key).append("=").append(encodeParameter(value)).append("&");
+            }
+        }
+        queryString.deleteCharAt(queryString.lastIndexOf("&"));
+        System.out.println("exampleMapThatSupportsDuplicateKeys: concatenated url param string: " + queryString.toString());
+    }
+
+    private String encodeParameter(String param) {
+        try {
+            return URLEncoder.encode(param, "UTF-8");
+        } catch (Exception e) {
+            return URLEncoder.encode(param);
+        }
+    }
+
 
 
 
