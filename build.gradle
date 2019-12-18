@@ -44,6 +44,6 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '23.0' //multimap
 
     compile 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
-    compile 'org.junit.platform:junit-platform-runner:1.5.2'6
+    compile 'org.junit.platform:junit-platform-runner:1.5.2'
     testCompile 'junit:junit:4.11'
 }
