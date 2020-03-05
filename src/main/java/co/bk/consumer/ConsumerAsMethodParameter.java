@@ -32,7 +32,7 @@ public class ConsumerAsMethodParameter {
 
         for (Developer developer: developers) {
 
-            // Specify what "consumers" act on the processedDeveloper object
+            // Specify what "consumers" (actions essentially) act on the processedDeveloper object
             this.processDeveloper(developer, processedDeveloper-> {
                 printerService.updateConsoleToLowercase(processedDeveloper);
                 printerService.updateConsoleToUppercase(processedDeveloper);
