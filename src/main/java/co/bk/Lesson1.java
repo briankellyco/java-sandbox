@@ -3,7 +3,7 @@
  * <p/>
  * JDK 8 MOOC Lesson 1 homework
  */
-package co.btk.lesson1;
+package co.bk.lesson1;
 
 import java.util.ArrayList;
 import java.util.Arrays;

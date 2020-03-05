@@ -1,4 +1,4 @@
-package co.bk.java8mooc;
+package co.bk;
 
 import java.util.ArrayList;
 import java.util.HashMap;

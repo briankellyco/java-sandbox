@@ -1,10 +1,14 @@
-package co.bk.java8mooc;
+package co.bk;
 
-import com.google.common.collect.TreeMultimap;
-
-import java.net.URLEncoder;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,8 +28,6 @@ public class MapsAtWork {
         exampleSortedByValue_usingSortByValue();
         exampleSortedByValue_usingMapEntry();
         exampleWriteHttpHeader_usingBiConsumer();
-
-        exampleMapThatSupportsDuplicateKeys();
 
     }
 
@@ -143,38 +145,29 @@ public class MapsAtWork {
     }
 
 
+    private static void exampleEnumOrListToAMap() {
 
-    private void exampleMapThatSupportsDuplicateKeys() {
+        // TODO
 
-        StringBuilder queryString = new StringBuilder();
+//        static final Map<String, Status> VALID_HTTP_STATUS_CODES =
+//                Arrays.stream(Status.values()).collect(Collectors.toMap(item -> String.valueOf(item.getStatusCode()), Function.identity() ));
 
-        // allow duplicate keys (provided values are different). Natural ordering applied in treemultimap
-        TreeMultimap<String, String> urlQueryParameters = TreeMultimap.create();
-        urlQueryParameters.put("Param1", "value2");
-        urlQueryParameters.put("Param1", "value1");
-        urlQueryParameters.put("Param2", "value3");
+        // WORKS
+//    static final Map<String, String> EXTENSION_TO_MIMETYPE =
+//        Arrays.stream(new String[][] {
+//            { "txt", "text/plain" },
+//            { "html", "text/html" },
+//            { "js", "application/javascript" },
+//            { "css", "text/css" },
+//            { "xml", "application/xml" },
+//            { "png", "image/png" },
+//            { "gif", "image/gif" },
+//            { "jpg", "image/jpeg" },
+//            { "jpeg", "image/jpeg" },
+//            { "svg", "image/svg+xml" },
+//        }).collect(Collectors.toMap(kv -> kv[0], kv -> kv[1]));
 
-        NavigableSet<String> keys = urlQueryParameters.keySet();
-        for (String key : keys) {
-            System.out.println("key = " + key);
-            NavigableSet<String> values = urlQueryParameters.get(key);
-            for (String value : values) {
-                System.out.println("value = " + value);
-                queryString.append(key).append("=").append(encodeParameter(value)).append("&");
-            }
-        }
-        queryString.deleteCharAt(queryString.lastIndexOf("&"));
-        System.out.println("exampleMapThatSupportsDuplicateKeys: concatenated url param string: " + queryString.toString());
     }
-
-    private String encodeParameter(String param) {
-        try {
-            return URLEncoder.encode(param, "UTF-8");
-        } catch (Exception e) {
-            return URLEncoder.encode(param);
-        }
-    }
-
 
 
 

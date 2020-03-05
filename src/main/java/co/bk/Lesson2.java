@@ -3,7 +3,7 @@
  * <p/>
  * JDK 8 MOOC Lesson 2 homework
  */
-package co.bk.java8mooc;
+package co.bk;
 
 import java.io.BufferedReader;
 import java.io.IOException;

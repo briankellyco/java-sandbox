@@ -1,19 +1,27 @@
-apply plugin: 'idea'
+/*
+ * Run this project by:
+ * 1. open shell and set JDK with "JAVA_HOME=/usr/java/jdk1.8.0_45"
+ * 2. gradle --version (needs to pick up 1.8)
+ * 3. gradle clean build
+ */
+
 apply plugin: 'java'
-
-apply plugin: 'maven-publish'
-
-group = 'co.bk.java8-mooc'
-version = '0.0.1-SNAPSHOT'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+apply plugin: 'maven'
+apply plugin: 'idea'
 
 idea {
     project {
-        languageLevel = '11'
+        languageLevel = '1.8'
     }
 }
+
+group = 'co.bk'
+version = '1.0-SNAPSHOT'
+
+description = """java8-mooc"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 sourceSets {
     main {
@@ -41,9 +49,13 @@ repositories {
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.7'
-    compile group: 'com.google.guava', name: 'guava', version: '23.0' //multimap
 
-    compile 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
-    compile 'org.junit.platform:junit-platform-runner:1.5.2'6
-    testCompile 'junit:junit:4.11'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+
+    //testCompile 'junit:junit:4.11'
+}
+
+test {
+    useJUnitPlatform()
 }

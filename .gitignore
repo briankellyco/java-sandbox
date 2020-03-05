@@ -10,6 +10,8 @@ out/
 build/
 .gradle
 .gradle/4.2.1
+gradle/
+gradlew*
 
 ### Maven ###
 target/

@@ -1,6 +1,4 @@
-package co.bk.java8mooc;
-
-import java.util.Optional;
+package co.bk.consumer;
 
 /**
  * @author Brian Kelly

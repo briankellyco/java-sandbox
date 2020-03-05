@@ -1,14 +1,9 @@
-package co.bk.java8mooc;
+package co.bk;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author Brian Kelly
@@ -36,8 +31,6 @@ public class StreamBasicsII {
         exampleSwitchDeveloperLanguage();
 
         exampleNullChecksAndReturnString();
-
-        exampleNullListProcessing();
 
     }
 
@@ -181,32 +174,6 @@ public class StreamBasicsII {
             })
             .orElseThrow(() -> new RuntimeException("exception in exampleNullChecksAndReturnString()"));
         System.out.println("exampleNullChecksAndReturnString: title: " + title);
-    }
-
-    private void exampleNullListProcessing() {
-
-        /*
-         * Streaming a null list is not possible. Null lists should NOT exist. If in doubt create a stream.
-         * Additionally collectors in java8 cannot return a null list, only an empty list. Which is ideal really.
-         */
-
-        List<Developer> input = null;
-
-
-        // Options: ensure not null lists as that would represent a compile error.
-        // 1. create a wrapper method equivalent to line below that returns a list OR
-        // 2. use Apache commons CollectionUtils.emptyIfNull()
-        // 3. ... and other options https://www.baeldung.com/java-null-safe-streams-from-collections
-        Stream<Developer> processList = (input == null) ? Stream.empty() : input.stream();
-
-
-        List<Developer> result = processList.map( developer -> {
-            return developer;
-        }).collect(Collectors.toList()); // toList() will at minimum return empty list.
-
-        assertNotNull(result);
-        System.out.println("exampleNullListProcessing: empty stream processed into empty list (null list return not possible)");
-
     }
 
     // TODO.... use normal for loop and not forEach
