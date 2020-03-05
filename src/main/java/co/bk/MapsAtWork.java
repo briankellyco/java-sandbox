@@ -1,4 +1,4 @@
-package co.btk;
+package co.bk;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -141,6 +142,31 @@ public class MapsAtWork {
      */
     private static void addCustomHeader(Object o, String headerKey, String headerValue) {
         System.out.println("headerKey: "+ headerKey+" headerValue: "+ headerValue);
+    }
+
+
+    private static void exampleEnumOrListToAMap() {
+
+        // TODO
+
+//        static final Map<String, Status> VALID_HTTP_STATUS_CODES =
+//                Arrays.stream(Status.values()).collect(Collectors.toMap(item -> String.valueOf(item.getStatusCode()), Function.identity() ));
+
+        // WORKS
+//    static final Map<String, String> EXTENSION_TO_MIMETYPE =
+//        Arrays.stream(new String[][] {
+//            { "txt", "text/plain" },
+//            { "html", "text/html" },
+//            { "js", "application/javascript" },
+//            { "css", "text/css" },
+//            { "xml", "application/xml" },
+//            { "png", "image/png" },
+//            { "gif", "image/gif" },
+//            { "jpg", "image/jpeg" },
+//            { "jpeg", "image/jpeg" },
+//            { "svg", "image/svg+xml" },
+//        }).collect(Collectors.toMap(kv -> kv[0], kv -> kv[1]));
+
     }
 
 

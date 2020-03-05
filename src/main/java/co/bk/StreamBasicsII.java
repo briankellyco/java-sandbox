@@ -1,12 +1,9 @@
-package co.btk;
+package co.bk;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * @author Brian Kelly
