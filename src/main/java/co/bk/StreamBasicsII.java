@@ -183,7 +183,7 @@ public class StreamBasicsII {
     private void exampleReduceWithBooleans() {
 
         /**
-         * "reduce" enables a list to be examined and a single result to be returned after being examined.
+         * "reduce" enables a list to be examined and a single result returned.
          *
          * Use cases where its useful include:
          * 1. permissions evaluation
