@@ -183,7 +183,11 @@ public class StreamBasicsII {
     private void exampleReduceWithBooleans() {
 
         /**
-         * "reduce" enables a list to be examined and a single result to be returned based on some criteria.
+         * "reduce" enables a list to be examined and a single result to be returned after being examined.
+         *
+         * Use cases where its useful include:
+         * 1. permissions evaluation
+         * 2. concatenating or combining stuff from a list
          *
          * The first element in the reduce function is known as "identity" e.g the default value of the list of items is empty
          * The second element in the reduce function is known as "accumulator" e.g a function that takes two parameters: a partial result of the reduction operation and the next element of the stream
