@@ -189,7 +189,7 @@ public class StreamBasicsII {
          * 1. permissions evaluation
          * 2. concatenating or combining stuff from a list
          *
-         * The first element in the reduce function is known as "identity" e.g the default value of the list of items is empty
+         * The first element in the reduce function is known as "identity" e.g the default value of the list if items is empty
          * The second element in the reduce function is known as "accumulator" e.g a function that takes two parameters: a partial result of the reduction operation and the next element of the stream
          * The "accumulator" can be an actual function or a method reference e.g Boolean::logicalOr is a method reference
          */
