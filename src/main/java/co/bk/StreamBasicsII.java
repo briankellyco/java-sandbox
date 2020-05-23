@@ -32,6 +32,10 @@ public class StreamBasicsII {
 
         exampleNullChecksAndReturnString();
 
+        exampleReduceWithBooleans();
+
+        exampleReduceWithStrings();
+
     }
 
     private void exampleCollectorGroupingBy_plusMapping() {
@@ -176,6 +180,58 @@ public class StreamBasicsII {
         System.out.println("exampleNullChecksAndReturnString: title: " + title);
     }
 
+    private void exampleReduceWithBooleans() {
+
+        /**
+         * "reduce" enables a list to be examined and a single result to be returned based on some criteria.
+         *
+         * The first element in the reduce function is known as "identity" e.g the default value of the list of items is empty
+         * The second element in the reduce function is known as "accumulator" e.g a function that takes two parameters: a partial result of the reduction operation and the next element of the stream
+         * The "accumulator" can be an actual function or a method reference e.g Boolean::logicalOr is a method reference
+         */
+
+        List<Permission> permissions = new ArrayList<>();
+        permissions.add(new Permission(true, true));
+        permissions.add(new Permission(true, false));
+        permissions.add(new Permission(false, true));
+        permissions.add(new Permission(false, false));
+
+        boolean trueExpected = permissions
+                .stream()
+                .map( permission -> {
+                         boolean evaluation =  Boolean.logicalAnd(permission.checkOne, permission.checkTwo);
+                         return evaluation;
+                    }
+                ).reduce(false, Boolean::logicalOr);
+        System.out.println("exampleReduceWithBooleans: trueExpected: " + trueExpected);
+
+        permissions.remove(0);
+
+        boolean falseExpected = permissions
+                .stream()
+                .map( permission -> {
+                            boolean evaluation =  Boolean.logicalAnd(permission.checkOne, permission.checkTwo);
+                            return evaluation;
+                        }
+                ).reduce(false, Boolean::logicalOr);
+        System.out.println("exampleReduceWithBooleans: falseExpected: " + falseExpected);
+
+    }
+
+    private void exampleReduceWithStrings() {
+
+        List<String> letters = Arrays.asList("a", "b", "c", "d", "e");
+        String functionAccumulator = letters
+                .stream()
+                .reduce("", (partialString, element) -> partialString + element);
+        System.out.println("exampleReduceWithStrings: functionAccumulator: " + functionAccumulator);
+
+        String methodReferenceAccumulator = letters
+                .stream()
+                .reduce("", String::concat);
+        System.out.println("exampleReduceWithStrings: methodReferenceAccumulator: " + methodReferenceAccumulator);
+    }
+
     // TODO.... use normal for loop and not forEach
     private void exampleIterateListButBreak() {
         // https://stackoverflow.com/questions/23308193/break-or-return-from-java-8-stream-foreach
@@ -268,6 +324,18 @@ public class StreamBasicsII {
         developers.add(devSerious);
         developers.add(devQuiet);
         return developers;
+    }
+
+    public static class Permission {
+
+        private boolean checkOne = false;
+
+        private boolean checkTwo = false;
+
+        public Permission(boolean checkOne, boolean checkTwo) {
+            this.checkOne = checkOne;
+            this.checkTwo = checkTwo;
+        }
     }
 
 
