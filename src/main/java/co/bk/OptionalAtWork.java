@@ -1,6 +1,7 @@
 package co.bk;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Brian Kelly
@@ -16,6 +17,7 @@ public class OptionalAtWork {
         System.out.println("JDK 8 Optional examples");
 
         exampleSingleItemProcessAndThrowException();
+        exampleListOfOptionalsToListOfObjects();
 
     }
 
@@ -42,5 +44,30 @@ public class OptionalAtWork {
         .orElseThrow(() -> new RuntimeException("Null Value detected so throwing exception"));
     }
 
+    /**
+     * Check if optional is empty... and processes optional if not empty.
+     */
+    private void exampleListOfOptionalsToListOfObjects() {
+
+        List<String> ids = Arrays.asList("13dfe8be-e066-11ea-87d0-0242ac130003", "1c52b940-e066-11ea-87d0-0242ac130003", "22c1bd1c-e066-11ea-87d0-0242ac130003");
+
+        List<UUID> uuids =  ids.stream()
+                .map(this::convertId)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+
+        System.out.println("exampleListOfOptionalsToListOfObjects: output list size: " + uuids.size());
+    }
+
+
+    private Optional<UUID> convertId(String id) {
+        try {
+            return Optional.of(UUID.fromString(id));
+        }
+        catch(IllegalArgumentException e){
+            return Optional.empty();
+        }
+    }
 }
 

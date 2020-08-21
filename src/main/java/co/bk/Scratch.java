@@ -8,14 +8,18 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 public class Scratch {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {new StringJoiner("-").add(locale.getLanguage()).add(locale.getCountry()).toString()
+
+
         String location = "/guided-procurement/v1-alpha/activities/9d1c0106-31bf-42fe-8436-065ef4ed1179";
 
         String id = location.split("/")[4];
