@@ -17,7 +17,8 @@ import java.util.UUID;
 public class Scratch {
 
 
-    public static void main(String[] args) {new StringJoiner("-").add(locale.getLanguage()).add(locale.getCountry()).toString()
+    public static void main(String[] args) {
+        //new StringJoiner("-").add(locale.getLanguage()).add(locale.getCountry()).toString()
 
 
         String location = "/guided-procurement/v1-alpha/activities/9d1c0106-31bf-42fe-8436-065ef4ed1179";

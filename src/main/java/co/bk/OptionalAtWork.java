@@ -1,5 +1,6 @@
 package co.bk;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,8 @@ public class OptionalAtWork {
 
         exampleSingleItemProcessAndThrowException();
         exampleListOfOptionalsToListOfObjects();
-
+        exampleFlatmapAlwaysReturnsAnOptional();
+        exampleOptionalListAndFindBiggestValue();
     }
 
     private void exampleSingleItemProcessAndThrowException() {
@@ -69,5 +71,54 @@ public class OptionalAtWork {
             return Optional.empty();
         }
     }
+
+    private void exampleFlatmapAlwaysReturnsAnOptional() {
+
+        Optional<List<BigDecimal>> data = Optional.of(Arrays.asList(BigDecimal.TEN, BigDecimal.ONE, BigDecimal.valueOf(100), BigDecimal.valueOf(55)));
+
+        // https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html
+        // flatMap(Function<? super T,Optional<U>> mapper)
+        // If a value is present, apply the provided Optional-bearing mapping function to it, return that result, otherwise return an empty Optional.
+        System.out.println(data.flatMap(OptionalAtWork::mapperFunction));
+    }
+
+    static Optional<String> mapperFunction(List<BigDecimal> input) {
+        String result = input == null ? null : "size for " + input.size();
+        return Optional.of(result);
+    }
+
+    private void exampleOptionalListAndFindBiggestValue() {
+
+        Optional<List<BigDecimal>> data = Optional.of(Arrays.asList(BigDecimal.TEN, BigDecimal.ONE, BigDecimal.valueOf(100), BigDecimal.valueOf(55)));
+
+        // Assumes optional is never empty
+        BigDecimal biggestValue = data.get()
+            .stream().filter(Objects::nonNull) // check list not empty
+            .max(BigDecimal::compareTo)
+            .orElse(BigDecimal.valueOf(-1));
+
+        System.out.println("exampleOptionalListAndFindBiggestValue: result #1: " +  biggestValue);
+
+        // Assumes optional could be empty
+        BigDecimal biggestValue2 = data
+                .orElseGet(Collections::emptyList)
+                .stream()
+                .max(BigDecimal::compareTo)
+                .orElse(BigDecimal.valueOf(-1));
+
+        System.out.println("exampleOptionalListAndFindBiggestValue: result #2: " +  biggestValue2);
+
+        // Checks optional is not null; isPresent approach is more verbose and not preferred as much as using map() directly on an optional or the orElseGet approach
+        if (data.isPresent()) {
+            BigDecimal biggestValue3 = data
+                .get()
+                .stream()
+                .max(BigDecimal::compareTo)
+                .orElse(BigDecimal.valueOf(-1));
+
+            System.out.println("exampleOptionalListAndFindBiggestValue: result #3: " +  biggestValue3);
+        }
+    }
+
 }
 
