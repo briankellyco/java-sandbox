@@ -7,7 +7,9 @@ public class CodilityTask01 {
             /*
              * Codility reported this test dataset as failing but I believe the correct solution is returned.
              *
-             * Code has not been modified since test session.
+             * I can only assume I didn't copy and paste into the Codility correctly OR their tests are incorrect.
+             *
+             * CODE HAS NOT BEEN MODIFIED SINCE TEST SESSION.
              */
             int U = 3;
             int L = 2;
