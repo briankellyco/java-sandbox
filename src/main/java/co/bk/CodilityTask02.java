@@ -9,11 +9,11 @@ import java.util.stream.Stream;
 /*
  * Compare two streams and filter data according to business rules. A Codility test task.
  */
-public class StreamExample {
+public class CodilityTask02 {
 
     public static void main(String[] args) {
 
-        StreamExample streamExample = new StreamExample();
+        CodilityTask02 streamExample = new CodilityTask02();
 
         PendingTransaction pendingTransaction1 = new PendingTransaction(50L);
         PendingTransaction pendingTransaction2 = new PendingTransaction(100L);
@@ -46,7 +46,7 @@ public class StreamExample {
 
         Stream<ProcessedTransaction> processedFlattened = flatten(processed);
 
-        // Collect processed stream into a list so that it can be iterated over multiple times (Streams may be iterated just once)
+        // Streams are iterable once. Collect processed stream into a list so that it can be iterated over multiple times.
         List<ProcessedTransaction> processedFlattenedList = processedFlattened.collect(Collectors.toList());
 
         Stream<PendingTransaction> filteredPending = pending.filter(pendingTransaction ->
