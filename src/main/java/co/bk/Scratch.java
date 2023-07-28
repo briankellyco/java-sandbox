@@ -1,6 +1,7 @@
 package co.bk;
 
 import javax.xml.stream.events.ProcessingInstruction;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -20,12 +21,39 @@ public class Scratch {
     public static void main(String[] args) {
         //new StringJoiner("-").add(locale.getLanguage()).add(locale.getCountry()).toString()
 
+//        String location = "/guided-procurement/v1-alpha/activities/9d1c0106-31bf-42fe-8436-065ef4ed1179";
+//
+//        String id = location.split("/")[4];
+//
+//        System.out.printf("id: " + id );
 
-        String location = "/guided-procurement/v1-alpha/activities/9d1c0106-31bf-42fe-8436-065ef4ed1179";
+//        // create a formater
+//        DateTimeFormatter formatter
+//                = DateTimeFormatter.ISO_LOCAL_TIME;
+//
+//        // create an LocalTime object and
+//        LocalTime lt
+//                = LocalTime
+//                .parse("10:15:45",
+//                        formatter);
+//
+//        // print result
+//        System.out.println("LocalTime : "
+//                + lt);
 
-        String id = location.split("/")[4];
+        // Duration using ofSeconds() method
+        Duration duration
+                = Duration.ofMinutes(10);
 
-        System.out.printf("id: " + id );
+        System.out.println("Duration: "
+                + duration);
+
+        // Get the number of seconds
+        // using toSeconds() method
+        long seconds = duration.toSeconds();
+
+        System.out.println(duration.toSeconds());
+
     }
 
 //    public static void main(String[] args) throws Exception {
