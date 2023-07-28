@@ -43,10 +43,10 @@ public class MapsAtWork {
 
         //LinkedHashMap respects ordering by value. Treemap imposes natural ordering on key. HashMap has no ordering.
         Map<Integer, Integer> unsorted = new HashMap<Integer, Integer>();
-        unsorted.put(new Integer(1), new Integer(7));
-        unsorted.put(new Integer(2), new Integer(5));
-        unsorted.put(new Integer(3), new Integer(1));
-        unsorted.put(new Integer(4), new Integer(7));
+        unsorted.put(Integer.valueOf(1), Integer.valueOf(7));
+        unsorted.put(Integer.valueOf(2), Integer.valueOf(5));
+        unsorted.put(Integer.valueOf(3), Integer.valueOf(1));
+        unsorted.put(Integer.valueOf(4), Integer.valueOf(7));
 
         LinkedHashMap<Integer, Integer> sortedMap =
                 unsorted.entrySet().stream()
@@ -60,10 +60,10 @@ public class MapsAtWork {
     private void exampleSortedByValue_usingSortByValue() {
 
         Map<Integer, Integer> unsorted = new HashMap<Integer, Integer>();
-        unsorted.put(new Integer(1), new Integer(7));
-        unsorted.put(new Integer(2), new Integer(5));
-        unsorted.put(new Integer(3), new Integer(1));
-        unsorted.put(new Integer(4), new Integer(7));
+        unsorted.put(Integer.valueOf(1), Integer.valueOf(7));
+        unsorted.put(Integer.valueOf(2), Integer.valueOf(5));
+        unsorted.put(Integer.valueOf(3), Integer.valueOf(1));
+        unsorted.put(Integer.valueOf(4), Integer.valueOf(7));
 
         Map sortedMap = MapsAtWork.sortByValue(unsorted);
 
@@ -98,10 +98,10 @@ public class MapsAtWork {
     private void exampleSortedByValue_usingMapEntry() {
 
         Map<Integer, Integer> unsorted = new HashMap<Integer, Integer>();
-        unsorted.put(new Integer(1), new Integer(7));
-        unsorted.put(new Integer(2), new Integer(5));
-        unsorted.put(new Integer(3), new Integer(1));
-        unsorted.put(new Integer(4), new Integer(7));
+        unsorted.put(Integer.valueOf(1), Integer.valueOf(7));
+        unsorted.put(Integer.valueOf(2), Integer.valueOf(5));
+        unsorted.put(Integer.valueOf(3), Integer.valueOf(1));
+        unsorted.put(Integer.valueOf(4), Integer.valueOf(7));
 
         List list =
                 unsorted.entrySet().stream()
