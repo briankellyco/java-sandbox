@@ -7,13 +7,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /*
- * Compare two streams and filter data according to business rules. A Codility test task.
+ * A consultancy gave a code task asking for a stream of streams to be unwrapped.
+ *
+ * Compare the two streams and filter data according to business rules.
  */
-public class CodilityTask02 {
+public class StreamOfStreams {
 
     public static void main(String[] args) {
 
-        CodilityTask02 streamExample = new CodilityTask02();
+        StreamOfStreams streamExample = new StreamOfStreams();
 
         PendingTransaction pendingTransaction1 = new PendingTransaction(50L);
         PendingTransaction pendingTransaction2 = new PendingTransaction(100L);
@@ -41,7 +43,9 @@ public class CodilityTask02 {
     }
 
 
-    // Iteration #2
+    /*
+     * Iteration #2
+     */
     Stream<PendingTransaction> reconcileV2(Stream<PendingTransaction> pending, Stream<Stream<ProcessedTransaction>> processed) {
 
         Stream<ProcessedTransaction> processedFlattened = flatten(processed);
