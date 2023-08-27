@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 /*
  * A consultancy gave a code task asking for a stream of streams to be unwrapped.
  *
+ * The trick is flatten the stream and collect to a list (and thus items available for comparison).
+ *
  * Compare the two streams and filter data according to business rules.
  */
 public class StreamOfStreams {
@@ -42,9 +44,14 @@ public class StreamOfStreams {
         });
     }
 
-
     /*
-     * Iteration #2
+     * The problem requires that the nested stream is flattened and then "collected" into a list. The list items can be compared against the pending stream.
+     *
+     * Attempting to compare two streams directly is not possible as the first an item in a stream is iterated over, it is consumed.
+     * Consumed meaning it can't be iterated over again.
+     *
+     * With this in mind, the solution just needs to iterate one stream and have the items from the other stream stored in a list for comparison.
+     *
      */
     Stream<PendingTransaction> reconcileV2(Stream<PendingTransaction> pending, Stream<Stream<ProcessedTransaction>> processed) {
 
@@ -55,26 +62,6 @@ public class StreamOfStreams {
 
         Stream<PendingTransaction> filteredPending = pending.filter(pendingTransaction ->
                 processedFlattenedList.stream().anyMatch(processedTransaction ->
-                        isTransactionProcessed.test(pendingTransaction, processedTransaction)
-                )
-        );
-        return filteredPending;
-    }
-
-
-
-    /*
-     * Iteration #1
-     *
-     * Program execution fails after processing the first item in the "pending" stream. Cause of issue is that streams
-     * may only be processed once. Resolution in reconcileV2.
-     */
-    Stream<PendingTransaction> reconcileV1(Stream<PendingTransaction> pending, Stream<Stream<ProcessedTransaction>> processed) {
-
-        Stream<ProcessedTransaction> processedFlattened = flatten(processed);
-
-        Stream<PendingTransaction> filteredPending = pending.filter(pendingTransaction ->
-                processedFlattened.anyMatch(processedTransaction ->
                         isTransactionProcessed.test(pendingTransaction, processedTransaction)
                 )
         );
@@ -102,7 +89,7 @@ public class StreamOfStreams {
     }
 
     static class PendingTransaction {
-        Long id; // always set correctly
+        Long id; // always set
 
         public PendingTransaction(Long id) {
             this.id = id;
