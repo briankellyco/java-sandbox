@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class Scratch {
 
@@ -41,18 +42,26 @@ public class Scratch {
 //        System.out.println("LocalTime : "
 //                + lt);
 
+        Long utcStartTime = 1695489265000L;
+
+        Long utcEndTime = 1695495666430L;
+
+        Long utcDuration = utcEndTime - utcStartTime;
+
+        Long durationChargeSessionAsHours = TimeUnit.MILLISECONDS.toMinutes(utcDuration);
+
         // Duration using ofSeconds() method
-        Duration duration
-                = Duration.ofMinutes(10);
+//        Duration duration
+//                = Duration.ofMinutes(10);
 
         System.out.println("Duration: "
-                + duration);
+                + durationChargeSessionAsHours);
 
         // Get the number of seconds
         // using toSeconds() method
-        long seconds = duration.toSeconds();
-
-        System.out.println(duration.toSeconds());
+//        long seconds = duration.toSeconds();
+//
+//        System.out.println(duration.toSeconds());
 
     }
 

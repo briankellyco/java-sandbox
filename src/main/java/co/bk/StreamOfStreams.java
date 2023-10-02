@@ -7,9 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /*
- * A consultancy gave a code task asking for a stream of streams to be unwrapped.
- *
- * The trick is flatten the stream and collect to a list (and thus items are available for comparison with the other stream).
+ * The trick is to flatten both streams and collect one of them to a list (so that it can be iterated over multiple times).
  *
  * Compare the two streams and filter data according to business rules.
  */
