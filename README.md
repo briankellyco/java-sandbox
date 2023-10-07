@@ -10,7 +10,7 @@ This repo contains JAVA examples.
 
 
 ## Run the examples
-* the majority of the samples are runnable from a "main" method.
+* the majority of the samples are runnable via the "main" method.
 
 ## Author
 
