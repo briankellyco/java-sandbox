@@ -16,7 +16,6 @@ target/
 
 ### Dev ###
 local.properties
-application-local.yml
 
 ### macOS ###
 *.DS_Store

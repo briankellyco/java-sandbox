@@ -1,17 +1,22 @@
-# java8-mooc
+# Java Examples
 
-Oracle ran a Java 8 course in July 2015. Topics included lambdas, the streams API and collectors usage. 
+This repo contains JAVA examples.
 
-This repo contains official exercises and personal how-to experimentation.
+## Table of contents
 
-Syllabus areas covered included:  
-* Apply Lambdas to everyday problems
-* Convert anonymous classes to Lambda expressions
-* Apply the Streams API to solve problems of sorting, identifying the most and least, and reducing duplicates
-* Determine when to apply Lambdas (and when not to!)
-* Use Collectors
-* Improve performance with parallel streams
-* Debug Lambda expressions
+| Java Example                                                       | Description                                                             |
+|--------------------------------------------------------------------|-------------------------------------------------------------------------|
+| [Oracle Java Course](./src/main/java/co/bk/sandbox/mooc/README.md) | An introduction to functional programming introduced by the Java 8 JDK. |
 
-View the [online course page](https://apexapps.oracle.com/pls/apex/f?p=44785%3A145%3A0%3A%3A%3A%3AP145_EVENT_ID%2CP145_PREV_PAGE%3A4887%2C143#).
+
+## Run the examples
+* the majority of the samples are runnable from a "main" method.
+
+## Author
+
+[Brian Kelly](https://github.com/briankellyco)
+
+
+
+
 
