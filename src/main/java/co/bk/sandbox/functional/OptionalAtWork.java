@@ -1,4 +1,4 @@
-package co.bk.sandbox.general;
+package co.bk.sandbox.functional;
 
 import java.math.BigDecimal;
 import java.util.*;

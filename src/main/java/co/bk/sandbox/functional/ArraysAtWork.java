@@ -1,4 +1,4 @@
-package co.bk.sandbox.general;
+package co.bk.sandbox.functional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,6 @@ import java.util.stream.IntStream;
 import java.util.Arrays;
 
 public class ArraysAtWork {
-
-    //http://stackoverflow.com/questions/3064423/in-java-how-to-easily-convert-an-array-to-a-set
 
     public static void main(String args[]) {
 
