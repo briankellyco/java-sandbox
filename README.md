@@ -1,6 +1,6 @@
 # Java Skills
 
-A repository of Java programming experiences categorised and documented.
+Java programming experiences categorised and documented.
 
 
 ## Table of contents
