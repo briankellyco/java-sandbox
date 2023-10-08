@@ -1,5 +1,7 @@
 package co.bk.javaskills.functional;
 
+import org.zalando.problem.Status;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -8,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,6 +30,8 @@ public class MapsAtWork {
         exampleSortedByValue_usingSortByValue();
         exampleSortedByValue_usingMapEntry();
         exampleWriteHttpHeader_usingBiConsumer();
+
+        exampleEnumOrListToAMap();
 
     }
 
@@ -146,26 +151,30 @@ public class MapsAtWork {
 
     private static void exampleEnumOrListToAMap() {
 
-        // TODO
 
-//        static final Map<String, Status> VALID_HTTP_STATUS_CODES =
-//                Arrays.stream(Status.values()).collect(Collectors.toMap(item -> String.valueOf(item.getStatusCode()), Function.identity() ));
+        /*
+         * Understanding Function.identity()
+         *   https://stackoverflow.com/questions/28032827/java-8-lambdas-function-identity-or-t-t#28041480
+         */
+        final Map<String, Status> VALID_HTTP_STATUS_CODES =
+                Arrays.stream(Status.values()).collect(Collectors.toMap(item -> String.valueOf(item.getStatusCode()), Function.identity() ));
 
-        // WORKS
-//    static final Map<String, String> EXTENSION_TO_MIMETYPE =
-//        Arrays.stream(new String[][] {
-//            { "txt", "text/plain" },
-//            { "html", "text/html" },
-//            { "js", "application/javascript" },
-//            { "css", "text/css" },
-//            { "xml", "application/xml" },
-//            { "png", "image/png" },
-//            { "gif", "image/gif" },
-//            { "jpg", "image/jpeg" },
-//            { "jpeg", "image/jpeg" },
-//            { "svg", "image/svg+xml" },
-//        }).collect(Collectors.toMap(kv -> kv[0], kv -> kv[1]));
+        final Map<String, String> EXTENSION_TO_MIMETYPE =
+            Arrays.stream(new String[][] {
+                { "txt", "text/plain" },
+                { "html", "text/html" },
+                { "js", "application/javascript" },
+                { "css", "text/css" },
+                { "xml", "application/xml" },
+                { "png", "image/png" },
+                { "gif", "image/gif" },
+                { "jpg", "image/jpeg" },
+                { "jpeg", "image/jpeg" },
+                { "svg", "image/svg+xml" },
+            }).collect(Collectors.toMap(kv -> kv[0], kv -> kv[1]));
 
+            System.out.println(String.format("exampleEnumOrListToAMap() statusCodes: %s mimeTypes: %s",
+                    VALID_HTTP_STATUS_CODES.size(), EXTENSION_TO_MIMETYPE.size() ));
     }
 
 
