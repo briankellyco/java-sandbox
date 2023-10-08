@@ -1,6 +1,8 @@
 # mooc example
 
-Oracle ran a Java 8 MOOC course in July 2015. MOOC = Massive Open Online Course. 
+Oracle ran a Java 8 MOOC course in July 2015. 
+
+MOOC meaning "Massive Open Online Course". 
 
 Lectures and homework lessons are located at:
 
