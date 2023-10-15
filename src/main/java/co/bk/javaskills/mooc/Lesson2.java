@@ -56,7 +56,7 @@ public class Lesson2 {
     /**
      * Exercise 1
      *
-     * Create a new list with all the general from original list converted to
+     * Create a new list with all the general from original list dto to
      * lower case and print them out.
      */
     private void exercise1() {
@@ -162,7 +162,7 @@ public class Lesson2 {
 
     /**
      * Using the BufferedReader to access the file create a list of words from
-     * the file, converted to lower-case and with duplicates removed, which is
+     * the file, dto to lower-case and with duplicates removed, which is
      * sorted by natural order.  Print the contents of the list.
      */
     private void exercise6() throws IOException {
